@@ -1,0 +1,22 @@
+<select id="category_name">
+   	<option value="">Toutes les catégories</option>
+  	{% for category in categories %}
+    <option value="{{ category.id }}">{{ category.name }}</option>
+  	{% endfor %}
+</select>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).on('change', '#category_name', function () {
+    	categoryName = $('#category_name').val();
+			$.ajax({
+				type: "POST",
+				url: "{{ path('car_by_category') }}",
+				dataType: 'json',
+				data: {category_name: categoryName},
+				success: function (response) {
+					$('#cars').html(response.template);
+				}
+			})
+	})
+</script>

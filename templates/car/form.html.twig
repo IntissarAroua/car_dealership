@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{% if car.id %}
+		La voiture "{{ car.name }}"
+		{% else %}Nouvelle voiture
+	{% endif %}
+{% endblock %}
+
+{% block activeCar %}
+	class="active"
+{% endblock %}
+
+{% block content_title %}
+	{% if car.id %}
+		La voiture "{{ car.name }}"
+		{% else %}Nouvelle voiture
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="card">
+		<div class="card-body">
+			{{form_start(form)}}
+			<div class="mb-3">
+				<label class="form-label">Nom</label>
+				{{ form_row(form.name) }}
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Nombre sièges</label>
+				{{ form_row(form.nbSeats) }}
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Nombre portes</label>
+				{{ form_row(form.nbDoors) }}
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Cout</label>
+				{{ form_row(form.cost) }}
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Catégory</label>
+				{{ form_row(form.category) }}
+			</div>
+
+			<div class="float-end">
+				<a href="{{ path('car_index') }}" style="text-decoration: none">
+					<button type="button" class="btn btn-secondary">Annuler</button>
+				</a>
+				<button type="submit" class="btn" style="background-color:#7a6595; color: white">Enregistrer</button>
+			</div>
+
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

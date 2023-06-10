@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Voitures
+{% endblock %}
+
+{% block activeCar %}
+	class="active"
+{% endblock %}
+
+{% block content_title %}
+	Liste des voitures
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-3">{{ render(controller('App\\Controller\\CarController::searchField')) }}</div>
+		<div class="col-3">{{ render(controller('App\\Controller\\CarController::categoryFilter')) }}</div>
+
+		<div class="col-6">
+			<a href="{{ path('car_new') }}">
+				<button class="btn float-end" id="create" title="Ajouter une voiture">
+					+ Ajouter une voiture</button>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="card bg-white mt-4">
+	<div class="card-body">
+		<table class="table align-middle mb-0 bg-white">
+			<thead class="bg-white">
+				<tr>
+					<th>Identifiant</th>
+					<th>Nom</th>
+					<th>Nombre de sièges</th>
+					<th>Nombre de portes</th>
+					<th>Coût</th>
+					<th>Catégorie</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="cars">
+				{% include 'car/loop.html.twig' %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="pagination pagination-sm justify-content-center mt-5">
+	{% do list.setPageRange(3) %}
+	{{ knp_pagination_render(list, 'pagination.html.twig') }}
+</div>{% endblock %}

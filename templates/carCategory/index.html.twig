@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Catégories
+{% endblock %}
+
+{% block activeCategory %}
+	class="active"
+{% endblock %}
+
+{% block content_title %}
+	Liste des catégories
+{% endblock %}
+
+{% block content %}
+	<a href="{{ path('car_category_new') }}" data-toggle="tooltip" title="Ajouter une catégorie">
+		<button class="btn float-end" title="Ajouter une catégorie" id="create">+ Ajouter une catégorie</button>
+	</a>
+</div>
+<div class="card bg-white mt-4">
+	<div class="card-body">
+		<table class="table align-middle mb-0 bg-white">
+			<thead class="bg-white">
+				<tr>
+					<th>Identifiant</th>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for category in list %}
+					<tr>
+						<td>{{ category.id }}</td>
+						<td>{{ category.name }}</td>
+						<td>{{ category.description }}</td>
+						<td>
+							<a href="{{ path('car_category_update', {'id': category.id}) }}" data-toggle="tooltip" title="Modifier la catégorie" style="text-decoration: none">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7a6595" class="bi bi-pencil-square" viewbox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+								</svg>
+							</a>
+							<button class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal{{ category.id }}" data-bs-toggle="tooltip" title="Supprimer la catégorie">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#DC143C" class="bi bi-trash-fill" viewbox="0 0 16 16">
+									<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+								</svg>
+							</button>
+						</td>
+					</tr>
+					<!-- delete category modal -->
+					<div class="modal fade" id="deleteCategoryModal{{ category.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header bg-danger">
+									<h5 class="modal-title" id="exampleModalLabel">
+										Êtes-vous sûr ?
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>Vous voulez supprimer la catégorie
+										<strong>{{category.name}}</strong>
+										?</p>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+										<a href="{{ path('car_category_delete', {'id': category.id}) }}" style="color: white;">
+											<button class="btn btn-danger btn-sm">
+												Oui
+											</button>
+										</a>
+									</div>
+								</div>
+							</p>
+						</div>
+					</div>
+				{% else %}
+					<tr>
+						<td colspan="8">Aucun enregistrement trouvée</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

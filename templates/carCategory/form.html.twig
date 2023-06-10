@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{% if carCategory.id %}
+		La catégorie "{{ carCategory.name }}"
+		{% else %}Nouvelle catégorie
+	{% endif %}
+{% endblock %}
+
+{% block activeCategory %}
+	class="active"
+{% endblock %}
+
+{% block content_title %}
+	{% if carCategory.id %}
+		Modifier la catégorie "{{ carCategory.name }}"
+		{% else %}Nouvelle catégorie
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="card">
+		<div class="card-body">
+			{{form_start(form)}}
+			<div class="mb-3">
+				<label class="form-label">Nom</label>
+				{{ form_row(form.name) }}
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Déscription</label>
+				{{ form_row(form.description) }}
+			</div>
+
+			<div class="float-end">
+				<a href="{{ path('car_category_index') }}" style="text-decoration: none">
+					<button type="button" class="btn btn-secondary">Annuler</button>
+				</a>
+				<button type="submit" class="btn" style="background-color:#7a6595; color: white">Enregistrer</button>
+			</div>
+
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

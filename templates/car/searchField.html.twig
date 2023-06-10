@@ -1,0 +1,19 @@
+<div class="topnav">
+  <input type="text" id="car_name" placeholder="Recherche par nom..">
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).on('keyup', '#car_name', function () {
+    	carName = $('#car_name').val();
+			$.ajax({
+				type: "POST",
+				url: "{{ path('car_by_name') }}",
+				dataType: 'json',
+				data: {car_name: carName},
+				success: function (response) {
+					$('#cars').html(response.template);
+				}
+			})
+	})
+</script>
